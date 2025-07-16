@@ -30,7 +30,7 @@ const ProfileSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true // ✅ This already creates a unique index
   },
   skills: {
     type: [String],
@@ -45,7 +45,7 @@ const ProfileSchema = new mongoose.Schema({
     default: []
   },
   document: {
-    type: String 
+    type: String
   },
   photoUrl: {
     type: String
@@ -80,7 +80,6 @@ const ProfileSchema = new mongoose.Schema({
     }],
     default: []
   },
-  // Student-specific fields
   highSchoolSubjects: {
     type: String
   },
@@ -93,14 +92,12 @@ const ProfileSchema = new mongoose.Schema({
       year: String,
       school: String,
       percentage: Number,
-      // Special fields for National Exam
       subjectGrades: String,
       certificate: String,
       supportingDocuments: [String]
     }],
     default: []
   },
-  // Undocumented talent-specific fields
   talentCategory: {
     type: String,
     enum: ['artist', 'musician', 'programmer', 'writer', 'designer', 'other']
@@ -128,12 +125,11 @@ const ProfileSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-// Add index for performance
-ProfileSchema.index({ email: 1 });
+// ✅ Keep these additional indexes (non-conflicting and useful for queries)
 ProfileSchema.index({ option: 1 });
 ProfileSchema.index({ isPublic: 1 });
 ProfileSchema.index({ createdAt: -1 });
-ProfileSchema.index({ skills: 1 }); // For skill-based searches
-ProfileSchema.index({ currentLocation: 1 }); // For location-based searches
+ProfileSchema.index({ skills: 1 });
+ProfileSchema.index({ currentLocation: 1 });
 
-export default mongoose.model('ProfileModel', ProfileSchema); 
+export default mongoose.model('ProfileModel', ProfileSchema);
