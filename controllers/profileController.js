@@ -285,7 +285,6 @@ const getAllProfiles = async (req, res) => {
       query.option = option;
     }
     
-    console.log('Fetching profiles with query:', query);
     
     // Get profiles that match the query
     const profiles = await Profile.find(query);
