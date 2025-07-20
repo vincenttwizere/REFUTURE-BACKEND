@@ -44,10 +44,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/applications', applicationRoutes);
 app.use('/api/contact', contactRoutes);
 
-// Health check
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', message: 'Refuture API is running' });
-});
+
 
 // Error handling middleware
 app.use(errorHandler);
