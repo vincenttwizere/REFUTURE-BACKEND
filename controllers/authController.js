@@ -108,6 +108,7 @@ const loginUser = async (req, res) => {
       success: true,
       token,
       user: user.toPublicJSON(),
+      hasProfile: user.hasProfile,
       redirectTo
     });
   } catch (error) {

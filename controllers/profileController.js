@@ -38,7 +38,8 @@ const createProfile = async (req, res) => {
       talentCategory,
       talentExperience,
       talentDescription,
-      portfolio
+      portfolio,
+      score // <-- Add score here
     } = req.body;
 
     // Validate required fields
@@ -160,7 +161,9 @@ const createProfile = async (req, res) => {
       ...(talentCategory && talentCategory.trim() !== '' && { talentCategory }),
       ...(talentExperience && talentExperience.trim() !== '' && { talentExperience }),
       ...(talentDescription && talentDescription.trim() !== '' && { talentDescription }),
-      portfolio: portfolioArray
+      portfolio: portfolioArray,
+      // Add score if provided and option is student
+      ...(option === 'student' && score !== undefined && score !== null && score !== '' && { score: Number(score) })
     };
 
     console.log('Profile data prepared:', Object.keys(profileData));
@@ -408,6 +411,11 @@ const updateProfile = async (req, res) => {
       }
     } else {
       updateData.experience = []; // Set empty array if not provided
+    }
+
+    // In updateProfile, also allow updating score
+    if (req.body.score !== undefined) {
+      updateData.score = Number(req.body.score);
     }
 
     // Handle file uploads

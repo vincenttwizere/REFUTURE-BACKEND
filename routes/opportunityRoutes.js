@@ -49,15 +49,31 @@ import {
   getOpportunityById,
   updateOpportunity,
   deleteOpportunity,
-  checkIfSaved
+  checkIfSaved,
+  saveOpportunity,
+  getSavedOpportunities,
+  unsaveOpportunity,
+  getOpportunitiesByProvider,
+  updateOpportunityStatus
 } from '../controllers/opportunityController.js';
+import { protect } from '../middleware/authMiddleware.js';
+import upload from '../middleware/uploadMiddleware.js';
 
 const router = express.Router();
-router.post('/', createOpportunity);
+
+// Public routes
 router.get('/', getAllOpportunities);
 router.get('/:id', getOpportunityById);
-router.put('/:id', updateOpportunity);
-router.delete('/:id', deleteOpportunity);
-router.get('/saved/:userId/:opportunityId', checkIfSaved);
+
+// Protected routes
+router.post('/', protect, upload.array('attachments', 5), createOpportunity);
+router.put('/:id', protect, updateOpportunity);
+router.delete('/:id', protect, deleteOpportunity);
+router.get('/saved/:userId/:opportunityId', protect, checkIfSaved);
+router.post('/save', protect, saveOpportunity);
+router.get('/saved', protect, getSavedOpportunities);
+router.delete('/:opportunityId/save', protect, unsaveOpportunity);
+router.get('/provider/:providerId', getOpportunitiesByProvider);
+router.put('/:id/status', protect, updateOpportunityStatus);
 
 export default router;

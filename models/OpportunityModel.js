@@ -139,6 +139,23 @@ const OpportunitySchema = new mongoose.Schema({
   timestamps: true
 });
 
+// Add indexes for better query performance
+OpportunitySchema.index({ type: 1 });
+OpportunitySchema.index({ isActive: 1 });
+OpportunitySchema.index({ isRemote: 1 });
+OpportunitySchema.index({ provider: 1 });
+OpportunitySchema.index({ createdAt: -1 });
+OpportunitySchema.index({ applicationDeadline: 1 });
+OpportunitySchema.index({ location: 1 });
+OpportunitySchema.index({ 'requirements.skills': 1 });
+OpportunitySchema.index({ tags: 1 });
+OpportunitySchema.index({ category: 1 });
 
+// Text index for search functionality
+OpportunitySchema.index({ 
+  title: 'text', 
+  description: 'text', 
+  category: 'text' 
+});
 
 export default mongoose.model('Opportunity', OpportunitySchema);

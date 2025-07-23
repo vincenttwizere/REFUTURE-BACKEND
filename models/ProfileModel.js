@@ -122,7 +122,11 @@ const ProfileSchema = new mongoose.Schema({
   isPublic: {
     type: Boolean,
     default: false
-  }
+  },
+  score: {
+    type: Number,
+    required: function() { return this.option === 'student'; },
+  },
 }, { timestamps: true });
 
 // ✅ Keep these additional indexes (non-conflicting and useful for queries)
