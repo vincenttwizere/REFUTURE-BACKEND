@@ -132,11 +132,4 @@ SENDGRID_FROM=your_verified_sender@example.com
 
 To enable real email notifications (e.g., for signup), add the following environment variables to your `.env` file in the backend directory:
 
-```
-GMAIL_USER=your_gmail_address@gmail.com
-GMAIL_PASS=your_gmail_app_password
-```
-
-- You must use an App Password if you have 2-Step Verification enabled on your Google account.
-- Never use your main Gmail password directly.
-- For more info, see: https://support.google.com/accounts/answer/185833 
+ 
